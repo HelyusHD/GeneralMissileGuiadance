@@ -1,6 +1,9 @@
+--Enumerations available, please use
+DebugLevel = LISTS -- 0|ERROR  5|WARNING  10|SYSTEM  100|LISTS  200|VECTORS
+--LISTS: length of lists
 
-DebugLevel = 100 -- 0|ERROR  5|WARNING  10|System  100|lenght of lists  200|vectors
 -- I marked lines where I need to add more code. with "#EDITHERE"
+
 
 --------------
 -- Settings --
@@ -55,13 +58,13 @@ MissileBehaviours = {{"Diving",       "Diving01",           200,               5
 -- This function is called each game tick by the game engine
 -- The object named "I" contains a bunch of data related to the game
 function Update(I)
-    GeneralGuiadance(I)
+    GeneralGuidance(I)
 end
 
 
 
 -- This is the main function organising my functions
-function GeneralGuiadance(I)
+function GeneralGuidance(I)
     if GeneralGuidanceInitDone ~= true then
         GeneralGuidanceInit(I)
     else
@@ -95,7 +98,7 @@ function GeneralGuidanceUpdate(I)
                     if BehaviourPattern == "CustomCurve" then MissileControlCustomCurve(I,luaTransceiverIndex,missileIndex,MissileBehaviour,AimPointPosition); matched = true end
                     -- more behaviours to come #EDITHERE
 
-                    if not matched then MyLog(I,5,"WARNING:  GuidanceGroup with LaunchpadName ".. GuidanceGroupData[1].. " has no working MissileBehaviour!") end
+                    if not matched then MyLog(I,WARNING,"WARNING:  GuidanceGroup with LaunchpadName ".. GuidanceGroupData[1].. " has no working MissileBehaviour!") end
                 end
             end
         end
@@ -109,7 +112,7 @@ end
 -- finds Id of MissileBehaviour
 function GeneralGuidanceInit(I)
     I:ClearLogs()
-    MyLog(I,10,"Running GeneralGuidanceInit")
+    MyLog(I,SYSTEM,"Running GeneralGuidanceInit")
     GeneralGuidanceInitDone = false
     local ErrorDetected = false
 
@@ -134,7 +137,7 @@ function GeneralGuidanceInit(I)
             end
         end
         GuidanceGroups[GuidanceGroupId].luaTransceiverIndexes = LaunchpadIds
-        if #LaunchpadIds == 0 then MyLog(I,5,"WARNING:  GuidanceGroup with LaunchpadName "..LaunchpadName.. " has no assigned launchpads!"); GuidanceGroupIsSetUpCorrect = false end
+        if #LaunchpadIds == 0 then MyLog(I,WARNING,"WARNING:  GuidanceGroup with LaunchpadName "..LaunchpadName.. " has no assigned launchpads!"); GuidanceGroupIsSetUpCorrect = false end
 
         -- iterating ai mainframes
         for index=0 ,I:Component_GetCount(26)-1 do -------------------------------------------------------------------------------------------------- not sure about indexing
@@ -142,16 +145,16 @@ function GeneralGuidanceInit(I)
                 GuidanceGroups[GuidanceGroupId].MainframeId = index
             end
         end
-        if GuidanceGroups[GuidanceGroupId].MainframeId == nil then MyLog(I,5,"WARNING:  GuiadanceGroup with LaunchpadName "..LaunchpadName.. " has no assigned ai mainframe!"); GuidanceGroupIsSetUpCorrect = false end
+        if GuidanceGroups[GuidanceGroupId].MainframeId == nil then MyLog(I,WARNING,"WARNING:  GuiadanceGroup with LaunchpadName "..LaunchpadName.. " has no assigned ai mainframe!"); GuidanceGroupIsSetUpCorrect = false end
 
         -- iterating MissileBehaviours
         for MissileBehaviourId, MissileBehaviour in pairs(MissileBehaviours) do
-            -- checks if the MissileGuiadance group can find a MissileBehaviour
+            -- checks if the MissileGuidance group can find a MissileBehaviour
             if MissileBehaviourName == MissileBehaviour[2] then
                 GuidanceGroups[GuidanceGroupId].MissileBehaviourId = MissileBehaviourId
             end
         end
-        if GuidanceGroups[GuidanceGroupId].MissileBehaviourId == nil then MyLog(I,5,"WARNING:  GuiadanceGroup with LaunchpadName "..LaunchpadName.. " has no configurated MissileBehaviour!"); GuidanceGroupIsSetUpCorrect = false end
+        if GuidanceGroups[GuidanceGroupId].MissileBehaviourId == nil then MyLog(I,WARNING,"WARNING:  GuiadanceGroup with LaunchpadName "..LaunchpadName.. " has no configurated MissileBehaviour!"); GuidanceGroupIsSetUpCorrect = false end
         
 
         GuidanceGroups[GuidanceGroupId].Valid = GuidanceGroupIsSetUpCorrect
@@ -160,7 +163,7 @@ function GeneralGuidanceInit(I)
     if ErrorDetected == false then
         GeneralGuidanceInitDone = true
     else
-        MyLog(I,10,"GeneralGuidanceInit failed")
+        MyLog(I,SYSTEM,"GeneralGuidanceInit failed")
     end
 end
 
@@ -249,3 +252,16 @@ function MyLog(I,priority,message)
         I:Log(message)
     end
 end
+
+
+---
+---Enumerations for Logging purposes, feel free to use for better readability
+---
+ERROR = 0
+WARNING = 5
+SYSTEM = 10
+LISTS = 100
+VECTORS = 200
+--DebugLevel = 100 -- 0|ERROR  5|WARNING  10|System  100|length of lists  200|vectors
+--This could be changed to something like: https://stefano-m.github.io/lua-enum/
+--But should suffice for here
