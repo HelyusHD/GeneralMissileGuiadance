@@ -17,7 +17,7 @@ DebugLevel = LISTS -- 0|ERROR  5|WARNING  10|SYSTEM  100|LISTS  200|VECTORS
 -- 1. LaunchpadName, 2. ControllingAiName, 3. MissileBehaviourName
 
 --                      LaunchpadName     ControllingAiName    MissileBehaviourName
-GuidanceGroups =  { { "missiles 01", "missile ai 01", "Diving01"},
+GuidanceGroups =  { {"missiles 01",   "missile ai 01",     "Diving01"},
                     {"missiles 02",   "missile ai 02",     "Diving01"},
                     {"missiles 03",   "missile ai 03",     "Diving01"},
                     {"missiles 04",   "missile ai 04",     "Diving01"},
@@ -46,8 +46,8 @@ GuidanceGroups =  { { "missiles 01", "missile ai 01", "Diving01"},
 
 
 --                BehaviourPattern    FlightBehaviourName   CruisingAltitude   DivingRadius     (#unfinished)
-MissileBehaviours = {{"Diving",       "Diving01",           200,               500         }} -- flies on CruisingAltitude till being within DivingRadius, when it strickes down on enemy
-
+MissileBehaviours = { {"Diving",       "Diving01",           200,               500         } -- flies on CruisingAltitude till being within DivingRadius, when it strickes down on enemy
+                    }
 
 
 
