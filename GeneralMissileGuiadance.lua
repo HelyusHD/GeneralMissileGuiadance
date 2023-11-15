@@ -9,9 +9,12 @@ DebugLevel = LISTS -- 0|ERROR  5|WARNING  10|SYSTEM  100|LISTS  200|VECTORS
 -- Settings --
 --------------
 
--- I have already created 5 different missile groups. You can give luanchers one of the names
--- from "LaunchpadName" and it will be controlled by the Ai
--- named like the "ControllingAiName" says and it will behave like "MissileBehaviourName" says.
+-- guidance groups --
+-----------------------------------------------------------------------------------------
+-- I have already created 5 different missile groups.
+-- You can give luanchers one of the names from "LaunchpadName" 
+-- and they will be controlled by the Ai named like the "ControllingAiName" says
+-- and they will behave like "MissileBehaviourName" says.
 -- You can remove or add groups.
 -- You can change the settings of a group, which are:
 -- 1. LaunchpadName, 2. ControllingAiName, 3. MissileBehaviourName
@@ -23,6 +26,9 @@ GuidanceGroups =  { {"missiles 01",   "missile ai 01",     "Diving01"},
                     {"missiles 04",   "missile ai 04",     "Diving01"},
                     {"missiles 05",   "missile ai 05",     "Diving01"}
                     }
+
+-- missile behaviours --
+-----------------------------------------------------------------------------------------
 
 -- Here you can define different behaviours for missiles.
 -- You can then tell a missile group, what behaviour to use.
